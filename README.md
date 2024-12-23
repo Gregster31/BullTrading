@@ -1,0 +1,2 @@
+# BullTrading
+Algorithmic Trading
