@@ -1,14 +1,12 @@
 from flask import Flask, render_template
-from stockScraper import scrape_data
-import json
+from stock_scraper import scrape_data
+from redis_helper import save_to_redis, get_from_redis
+
 
 app = Flask(__name__)
 
-# 5 tickers
-test_tickers = [
-    'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'JNPR'
-]
-
+# Define tickers for testing
+test_tickers = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'JNPR']
 # Almost all the 500 compagnies in the S&P500
 tickers = [
         'MMM', 'AOS', 'ABT', 'ABBV', 'ACN', 'ADBE', 'AMD', 'AES', 'AFL', 'A',
@@ -55,8 +53,17 @@ tickers = [
 
 @app.route('/')
 def home():
-    data = scrape_data(test_tickers)  # Get the scraped data
+    redis_key = 'scraped_data'
+    data = get_from_redis(redis_key)
+    
+    if not data:
+        data = scrape_data(test_tickers)
+        save_to_redis(redis_key, data)
+    
     return render_template('index.html', data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
