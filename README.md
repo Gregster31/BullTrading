@@ -2,9 +2,9 @@
 Algorithmic Trading
 
 Tools:
-BeautifulSoup: Tool to scrape websites in Python
-Redis: Save data in-memory for easy access
-Flask: Create a webApp with pythonic syntax
+BeautifulSoup: Tool to scrape websites in Python <br>
+Redis: Save data in-memory for easy access <br>
+Flask: Create a webApp with pythonic syntax <br>
 
 
 how to start:
